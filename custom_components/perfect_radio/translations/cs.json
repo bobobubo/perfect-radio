@@ -1,5 +1,8 @@
 {
   "config": {
+    "abort": {
+      "already_configured": "Perfect Radio je již nakonfigurováno."
+    },
     "step": {
       "user": {
         "title": "Perfect Radio",

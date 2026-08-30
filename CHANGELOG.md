@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.2
+
+- Fixed blocking file I/O during station catalogue loading.
+- Fixed blocking frontend hash calculation.
+- Added config-entry-only schema for Home Assistant validation.
+- Added localized "already configured" messages.
+- Fixed orphaned browser audio streams when the Lovelace card is recreated.
+- Added safer frontend custom-element registration.
+
 ## 0.1.1
 
 - Initial distributable Perfect Radio release.

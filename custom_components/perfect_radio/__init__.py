@@ -5,13 +5,16 @@ from dataclasses import dataclass
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.typing import ConfigType
 
+from .const import DOMAIN
 from .frontend import async_setup_frontend
 from .services import async_setup_services
 from .stations import Station, load_stations
 
 PLATFORMS: list[Platform] = [Platform.SELECT]
+CONFIG_SCHEMA = cv.config_entry_only_config_schema(DOMAIN)
 
 
 @dataclass
@@ -44,7 +47,7 @@ async def async_setup_entry(
     """Set up Perfect Radio from a config entry."""
 
     entry.runtime_data = PerfectRadioData(
-        stations=load_stations()
+        stations=await hass.async_add_executor_job(load_stations)
     )
 
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)

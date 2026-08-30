@@ -53,6 +53,10 @@ class PerfectRadioCard extends HTMLElement {
     return 3;
   }
 
+  disconnectedCallback() {
+    this._releaseAudio();
+  }
+
   _getState() {
     if (!this._hass) {
       return null;
@@ -146,17 +150,12 @@ class PerfectRadioCard extends HTMLElement {
         }
 
         button:disabled {
-          opacity: 0.35;
-          cursor: default;
-        }
-
-        button:hover {
-          background: var(--divider-color);
-        }
-
-        button:disabled {
           opacity: 0.4;
           cursor: default;
+        }
+
+        button:hover:not(:disabled) {
+          background: var(--divider-color);
         }
 
         .status {
@@ -283,35 +282,50 @@ class PerfectRadioCard extends HTMLElement {
 
     try {
       await this._audio.play();
+
       this._playing = true;
       this._update();
     } catch (error) {
       console.error("Perfect Radio playback failed:", error);
+
+      this._playing = false;
 
       this.shadowRoot.querySelector(".status").textContent =
         "Přehrávání se nepodařilo spustit.";
     }
   }
 
-  _stop() {
+  _releaseAudio() {
     this._audio.pause();
     this._audio.removeAttribute("src");
     this._audio.load();
 
     this._playing = false;
     this._pendingPlay = false;
+  }
 
+  _stop() {
+    this._releaseAudio();
     this._update();
   }
 }
 
-customElements.define("perfect-radio-card", PerfectRadioCard);
+if (!customElements.get("perfect-radio-card")) {
+  customElements.define("perfect-radio-card", PerfectRadioCard);
+}
 
 window.customCards = window.customCards || [];
 
-window.customCards.push({
-  type: "perfect-radio-card",
-  name: "Perfect Radio",
-  preview: true,
-  description: "Internet radio player using the Perfect Radio integration.",
-});
+if (
+  !window.customCards.some(
+    (card) => card.type === "perfect-radio-card"
+  )
+) {
+  window.customCards.push({
+    type: "perfect-radio-card",
+    name: "Perfect Radio",
+    preview: true,
+    description:
+      "Internet radio player using the Perfect Radio integration.",
+  });
+}

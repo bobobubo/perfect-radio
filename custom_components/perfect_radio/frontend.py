@@ -31,7 +31,7 @@ def _card_url() -> str:
 async def async_setup_frontend(hass: HomeAssistant) -> None:
     """Set up the Perfect Radio frontend."""
 
-    card_url = _card_url()
+    card_url = await hass.async_add_executor_job(_card_url)
 
     await hass.http.async_register_static_paths(
         [
