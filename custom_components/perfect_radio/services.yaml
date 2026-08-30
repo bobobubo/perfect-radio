@@ -1,0 +1,21 @@
+play:
+  name: Play station
+  description: Play a Perfect Radio station.
+  target:
+    entity:
+      domain: media_player
+  fields:
+    station_id:
+      name: Station ID
+      description: Optional station ID. If omitted, the station selected in Perfect Radio is used.
+      required: false
+      example: RadioBeat
+      selector:
+        text:
+
+stop:
+  name: Stop
+  description: Stop radio playback.
+  target:
+    entity:
+      domain: media_player

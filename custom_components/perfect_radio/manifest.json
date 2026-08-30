@@ -1,0 +1,18 @@
+{
+  "domain": "perfect_radio",
+  "name": "Perfect Radio",
+  "version": "0.1.1",
+  "config_flow": true,
+  "integration_type": "service",
+  "documentation": "https://github.com/bobobubo/perfect-radio",
+  "issue_tracker": "https://github.com/bobobubo/perfect-radio/issues",
+  "codeowners": [
+    "@bobobubo"
+  ],
+  "requirements": [],
+  "dependencies": [
+    "frontend",
+    "lovelace"
+  ],
+  "iot_class": "local_push"
+}
