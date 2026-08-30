@@ -8,7 +8,7 @@
   "dependencies": [
     "frontend",
     "http",
-    "lovlence"
+    "lovelace"
   ],
   "documentation": "https://github.com/bobobubo/perfect-radio",
   "integration_type": "service",
